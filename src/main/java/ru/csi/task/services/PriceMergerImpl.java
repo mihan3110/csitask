@@ -6,17 +6,17 @@ import ru.csi.task.utils.Utils;
 import java.util.*;
 
 /**
-Логика работы следующая:
-Метод принимает в себя 2 параметра:
-@param  pricesOld коллекция ArrayList, содержащая текущие цены
-@param  pricesNew коллекция ArrayList, содержащая новые цены
-@return actualPrices коллекция ArrayList, содержащая обновленные цены
-В первую очередь метод проверяет полученные коллекции на null и пустоту, затем
-метод пробегается каждой новой ценой п окаждой старой цене для того, чтобы определить коррелируют ли они.
-Если номер цены и номер товара обеих коллекций совпали, то определяется схема расположения коллекций друг относительно друга.
-и в зависимости от расположения даты и цены сдвигаются.
-Сложность O(n^2).
-
+ * Логика работы следующая:
+ * Метод принимает в себя 2 параметра:
+ *
+ * @param pricesOld коллекция ArrayList, содержащая текущие цены
+ * @param pricesNew коллекция ArrayList, содержащая новые цены
+ * @return actualPrices коллекция ArrayList, содержащая обновленные цены
+ * В первую очередь метод проверяет полученные коллекции на null и пустоту, затем
+ * метод пробегается каждой новой ценой п окаждой старой цене для того, чтобы определить коррелируют ли они.
+ * Если номер цены и номер товара обеих коллекций совпали, то определяется схема расположения коллекций друг относительно друга.
+ * и в зависимости от расположения даты и цены сдвигаются.
+ * Сложность O(n^2).
  */
 public class PriceMergerImpl implements PriceMergerer {
     public ArrayList<Price> mergePrices(ArrayList<Price> pricesOld, ArrayList<Price> pricesNew) {
@@ -40,7 +40,9 @@ public class PriceMergerImpl implements PriceMergerer {
             Date beginPrice = oldPrice.getBegin();
             Date endPrice = oldPrice.getEnd();
             for (Price newPrice : pricesNew) {
-                if (oldPrice.getProductCode() == newPrice.getProductCode() && oldPrice.getNumber() == newPrice.getNumber()) {
+                if (oldPrice.getProductCode() == newPrice.getProductCode()
+                        && oldPrice.getNumber() == newPrice.getNumber()
+                        && oldPrice.getDepart() == newPrice.getDepart()) {
                     Date beginNewPrice = newPrice.getBegin();
                     Date endNewPrice = newPrice.getEnd();
                     if (Utils.isOldContainsNew(beginPrice, endPrice, beginNewPrice, endNewPrice)) {
